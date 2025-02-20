@@ -1,0 +1,129 @@
+
+
+
+
+//Desarrollar un servicio adicional para consumir la API
+-> En el proyecto actual security-aouth-jwt -> clic en File  -> New -> Module
+
+-> Name: security-spring-oauth2-consumer
+-> en Location: Establecemos la ruta del servicio: Dejarlo en el nivel del proyecto actual
+-> Ruta de proyecto actual: ~\Escritorio\Servicios Web REST\security-aouth-jwt
+-> Ruta del nuevo Servicio: ~\Escritorio\Servicios Web REST\
+-> Build System: Maven
+-> JDK: Proyect JDK 17   //seleccionar el jdk
+-> Parent: <None> // No será el padre
+
+-> Desplegar Pestaña "Advanced Setting" y definir:
+-> GroupId: com.gep.customer-service
+-> ArtifactId: security-spring-oauth2-consumer
+
+-> Clic en Create.
+
+//En el IDE Intellij aparecen 2 carpeta con los proyectos 
+-> security-aouth-jwt  //Proyecto security
+-> security-spring-oauth2-consumer  //Proyecto Modular -servicio creado para consumir la API
+
+-> Proceder a arrastrar o pegar la carpeta security-aouth-jwt dentro de security-spring-oauth2-consumer 
+
+-- Para definir quien será el padre
+-> Ir al pom.xml de security-aouth-jwt y copiar el contenido dentro de la etiqueta parent:
+	
+ 	<groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.2</version>
+        <relativePath/>
+
+
+-> Luego ir al pom.xml de security-spring-oauth2-consumer y definir una etiqueta Parent y pegar el contenido de parent del pom.xml de security-aouth-jwt
+   	
+   <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.4.2</version>
+        <relativePath/>
+    </parent>
+
+
+
+-> Copiar las etiquetas groupId, artifactId y version del pom.xml de security-spring-oauth2-consumer  y pegarlo dentro de la etiqueta parent del pom.xml de security-aouth-jwt
+
+<parent>
+	<groupId>com.gep.customer-service</groupId>
+	<artifactId>security-spring-oauth2-consumer</artifactId>
+	<version>1.0-SNAPSHOT</version>
+</parent>
+	
+-> Eliminar la etiqueta descripcion del pom.xml de security-aouth-jwt.
+
+-> Luego ir al pom.xml de security-spring-oauth2-consumer y agregar ka etiqueta packaging y modules
+  <packaging>pom</packaging>
+    <modules>
+        <module>security-aouth-jwt</module>
+    </modules>
+
+
+--> Borrar la carpeta src del proyecto de security-spring-oauth2-consumer 
+
+--> Crear el siguiente proyecto que seria el cliente
+-> Abrir spring initializr - https://start.spring.io/
+-> Configuraciones: java -> Maven -> 3.4.2 ->jar -> 17
+-> Group: com.gep.customerservice
+-> Artifact: customer-service
+-> Name: customer-service
+-> Package name: com.gep.customerservice
+
+Dependencias: Spring Web y OAuth2 Resource Server 
+
+
+//Copiar esta carpeta de este proyecto llamado: customer-service y pegarlo dentro del proyecto: security-spring-oauth2-consumer
+
+//Abrir el pom.xml de security-spring-oauth2-consumer y copiar las etiqueta groupId, artifactId, version y pegarlas dentro de la etiqueta parent del pom.xml customer-service
+	<groupId>com.gep.customer-service</groupId>
+    	<artifactId>security-spring-oauth2-consumer</artifactId>
+    	<version>1.0-SNAPSHOT</version>
+
+
+//el parent del pom.xml de customer-service quedaria asi: 
+	<parent>
+		<groupId>com.gep.customer-service</groupId>
+		<artifactId>security-spring-oauth2-consumer</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+
+//Abrir el pom.xml de security-spring-oauth2-consumer y agregar otro modulo "customer-service" en la etiqueta modules:
+    <modules>
+        <module>security-aouth-jwt</module>
+        <module>customer-service</module>
+    </modules>
+
+
+    //Para ejecutar el proyecto:
+     -> Ejecutar el main del proyecto: customer-service -> Servicio que consume la API
+     -> Ejectuar el main del proyecto: security-aouth-jwt -> Servicio que contiene la API
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
